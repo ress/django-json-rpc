@@ -1,3 +1,5 @@
+**The client part of this lib is usable without django since it's hard to find a working JSON-RPC 2.0 lib for python**
+
 Django JSON-RPC
 ===============
 
