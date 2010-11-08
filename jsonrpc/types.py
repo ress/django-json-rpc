@@ -28,8 +28,9 @@ class Type(type):
       if isinstance(other, Type):
         if T in other.t:
           return True
-      if type.__eq__(T, other):
-        return True
+      return True
+      #if type.__eq__(T, other):
+      #  return True
     return False
   
   def __str__(self):
@@ -60,7 +61,7 @@ class Type(type):
         _types_gen(self)))
   
   def decode(self, n):
-    def fun(R, L):
+    def fun(L, R):
       if str(R) == n:
         return R
       else:

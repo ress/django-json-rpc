@@ -1,4 +1,4 @@
-import urllib
+import urllib, random
 from jsonrpc._json import loads, dumps
 from jsonrpc.types import *
 
@@ -23,10 +23,10 @@ class ServiceProxy(object):
     else:
        params = args
     
-    if Any.kind(params) == Object and self.__version != '2.0':
-      raise Exception('Unsupport arg type for JSON-RPC 1.0 '
-                     '(the default version for this client, '
-                     'pass version="2.0" to use keyword arguments)')
+    #if Any.kind(params) == Object and self.__version != '2.0':
+    #  raise Exception('Unsupport arg type for JSON-RPC 1.0 '
+    #                 '(the default version for this client, '
+    #                'pass version="2.0" to use keyword arguments)')
     # req = urllib2.Request(self.__service_url, )
     r = urllib.urlopen(self.__service_url,
                         dumps({
