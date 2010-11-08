@@ -49,14 +49,24 @@ class Type(type):
     ty = lambda t: type(t)
     if type(t) is type:
       ty = lambda t: t
+    def fun(L, R):
+      if hasattr(R, 't') and ty(t) == R:
+        return R
+      else:
+        return L
     return reduce(
-      lambda L, R: R if (hasattr(R, 't') and ty(t) == R) else L,
+      fun,
       filter(lambda T: T is not Any, 
         _types_gen(self)))
   
   def decode(self, n):
+    def fun(R, L):
+      if str(R) == n:
+        return R
+      else:
+        return L
     return reduce(
-      lambda L, R: R if (str(R) == n) else L,
+      fun,
       _types_gen(self))
 
 # JSON primatives and data types
