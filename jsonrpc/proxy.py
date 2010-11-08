@@ -1,4 +1,4 @@
-import urllib, uuid
+import urllib
 from jsonrpc._json import loads, dumps
 from jsonrpc.types import *
 
@@ -33,7 +33,7 @@ class ServiceProxy(object):
                           "jsonrpc": self.__version,
                           "method": self.__service_name,
                           'params': params,
-                          'id': str(uuid.uuid1())})).read()
+                          'id': str(random.randint(10000, 100000000))})).read()
     y = loads(r)
     if u'error' in y:
         pass
