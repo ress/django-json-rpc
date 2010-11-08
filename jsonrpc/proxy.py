@@ -17,8 +17,12 @@ class ServiceProxy(object):
     return {"jsonrpc": self.__version,
             "method": self.__service_name}
   
-  def __call__(self, *args, **kwargs):
-    params = kwargs if len(kwargs) else args
+  def __call__(self, *args, **kwargs):    
+    if len(kwargs):
+       params = kwargs
+    else:
+       params = args
+    
     if Any.kind(params) == Object and self.__version != '2.0':
       raise Exception('Unsupport arg type for JSON-RPC 1.0 '
                      '(the default version for this client, '
@@ -32,10 +36,5 @@ class ServiceProxy(object):
                           'id': str(uuid.uuid1())})).read()
     y = loads(r)
     if u'error' in y:
-      try:
-        from django.conf import settings
-        if settings.DEBUG:
-            print '%s error %r' % (self.__service_name, y)
-      except:
         pass
     return y
