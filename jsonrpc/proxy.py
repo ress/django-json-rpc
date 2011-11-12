@@ -1,4 +1,4 @@
-import urllib, random
+import urllib2, random
 from jsonrpc._json import loads, dumps
 from jsonrpc.types import *
 
@@ -28,12 +28,13 @@ class ServiceProxy(object):
     #                 '(the default version for this client, '
     #                'pass version="2.0" to use keyword arguments)')
     # req = urllib2.Request(self.__service_url, )
-    r = urllib.urlopen(self.__service_url,
+    r = urllib2.urlopen(self.__service_url,
                         dumps({
                           "jsonrpc": self.__version,
                           "method": self.__service_name,
                           'params': params,
-                          'id': str(random.randint(10000, 100000000))})).read()
+                          'id': str(random.randint(10000, 100000000))}),
+                        15).read()
     y = loads(r)
     if u'error' in y:
         pass
